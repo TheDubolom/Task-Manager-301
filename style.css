@@ -1,3 +1,8 @@
+:root {
+    --blue: #1b6ece;
+    --salad: #44c033;
+}
+
 body {
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,7 +19,7 @@ body {
     padding-left: 40px;
     padding-right: 40px;
     margin-top: 5vh;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     width: 90%;
     max-width: 600px;
     max-height: 70vh;
@@ -24,9 +29,49 @@ body {
 .header {
     font-style: bold;
     font-size: 2.5em;
-    background: linear-gradient(45deg, #44c033, #1b6ece);
+    background: linear-gradient(45deg, var(--salad), var(--blue));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     text-align: center;
+}
+
+.input-area {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#input-task {
+    padding: 12px 15px;
+    border: 2px solid rgb(76, 163, 90);
+    border-radius: 10px;
+    font-size: 1.1em;
+    flex-grow: 1;
+    box-sizing: border-box;
+    transition: 0.5s ease;
+}
+
+#input-task:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 10px 10px 20px rgba(1, 64, 180, 0.3)
+}
+
+#add-btn {
+    border: 2px solid var(--blue);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#add-btn:hover {
+    opacity: 0.7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4)
 }
