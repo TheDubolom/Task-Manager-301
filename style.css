@@ -54,7 +54,7 @@ body {
     margin-bottom: 30px;
 }
 
-.input-task {
+#input-task {
     padding: 12px 15px;
     border: 2px solid rgb(76, 163, 90);
     border-radius: 10px;
@@ -76,6 +76,7 @@ body {
 
 .task-item:hover {
     transform: translateY(-2px);
+    cursor: pointer;
 }
 
 .task-content {
@@ -113,8 +114,8 @@ body {
 
 #input-task:focus {
     outline: none;
-    border-color: var(--blue);
-    box-shadow: 10px 10px 20px rgba(1, 64, 180, 0.3)
+    border-color: var(--salad);
+    box-shadow: 10px 10px 20px rgba(1, 180, 46, 0.3)
 }
 
 #add-btn {
@@ -132,4 +133,36 @@ body {
     opacity: 0.7;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px var(--shadow);
+}
+
+.task-item.high-priority {
+    border-left: 8px solid red;
+}
+
+.task-item.medium-priority {
+    border-left: 8px solid orange;
+}
+
+.task-item.low-priority {
+    border-left: 8px solid white;
+}
+
+.task-item.completed {
+    border-left: 8px solid lightgreen;
+    opacity: 0.6;
+    box-shadow: 0 5px 8px green;
+}
+
+.task-item.completed .task-content{
+    text-decoration: line-through;
+    color: gray
+}
+
+.task-list:not(:has(>*))::before {
+    content: "Пока нет задач! Самое время их добавить!";
+    padding: 30px;
+    display: block;
+    color: gray;
+    font-style: italic;
+    text-align: center;
 }
