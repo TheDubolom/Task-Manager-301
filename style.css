@@ -135,15 +135,15 @@ body {
     box-shadow: 0 5px 15px var(--shadow);
 }
 
-.task-item.high-priority {
+.task-item.high {
     border-left: 8px solid red;
 }
 
-.task-item.medium-priority {
+.task-item.medium {
     border-left: 8px solid orange;
 }
 
-.task-item.low-priority {
+.task-item.low {
     border-left: 8px solid white;
 }
 

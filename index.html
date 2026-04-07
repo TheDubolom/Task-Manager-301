@@ -20,36 +20,9 @@
         </div>
 
         
-        <ul class="task-list">
-            <li class="task-item low-priority" onclick="this.classList.toggle('completed')">
-                <span class="task-content">Написать реферат</span>
-                <div class="task-actions">
-                    <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-                    <button class="task-btn" onclick="this.parentNode.parentNode.remove()">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                </div>
-            </li>
-            <li class="task-item high-priority" onclick="this.classList.toggle('completed')">
-                <span class="task-content">Постирать носки</span>
-                <div class="task-actions">
-                    <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-                    <button class="task-btn" onclick="this.parentNode.parentNode.remove()">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                </div>
-            </li>
-            <li class="task-item medium-priority" onclick="this.classList.toggle('completed')">
-                <span class="task-content">Написать Сергею с вопросом по протоколу</span>
-                <div class="task-actions">
-                    <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-                    <button class="task-btn" onclick="this.parentNode.parentNode.remove()">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                </div>
-            </li>
+        <ul id="task-list" class="task-list">
         </ul>
     </div>
 </body>
-
+<script src="index.js"></script>
 </html>
