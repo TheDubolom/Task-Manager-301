@@ -1,35 +1,22 @@
-let tasks = [
-    {
-        title: "Написать Сергею с вопросом по протоколу",
-        priority: "low",
-        isCompleted: true,
+const keyStorage = 'task-list';
+const taskStorage = {
+    save: (tasks) => {
+        const taskAsStr = JSON.stringify(tasks);
+        localStorage.setItem(keyStorage, taskAsStr);
     },
-    {
-        title: "Написать реферат",
-        priority: "high",
-        isCompleted: true,
+    get: () => {
+        const tasks = localStorage.getItem(keyStorage);
+        return JSON.parse(tasks);
     },
-    {
-        title: "Постирать носки",
-        priority: "medium",
-        isCompleted: false,
-    },
-    {
-        title: "Сдать ЕГЭ",
-        priority: "low",
-        isCompleted: false,
-    },
-    {
-        title: "Съездить на последнюю летнюю смену в 'Зеркальный'",
-        priority: "high",
-        isCompleted: false,
-    },
-]
+    init: () => {
+        if (localStorage.getItem(keyStorage) === null) {
+            taskStorage.save([]);
+        }
+    }
+};
 
-function start() {
-    console.log('Hello world');
-    alert('111111111');
-}
+taskStorage.init()
+
 document
     .addEventListener('keydown',
         (ev) => {
@@ -43,6 +30,8 @@ const addButton = document.getElementById("add-btn");
 const inputTaskEl = document.getElementById("input-task");
 addButton.onclick = addTask;
 
+let tasks = taskStorage.get();
+
 function createTask(task) {
     const newTaskEl = document.createElement('li');
     newTaskEl.classList.add("task-item");
@@ -51,6 +40,10 @@ function createTask(task) {
     newTaskEl.addEventListener('click', (ev) => {
         ev.currentTarget.classList.toggle('completed');
     });
+
+    if (task.isCompleted === true){
+        newTaskEl.classList.add('completed');
+    }
 
     newTaskEl.innerHTML = `
     <span class="task-content">${task.title}</span>
@@ -68,22 +61,34 @@ tasks.forEach(createTask);
 function addTask() {
     const taskTitle = inputTaskEl.value;
     const newTaskEl = document.createElement('li');
-    newTaskEl.classList.add("task-item");
-    newTaskEl.classList.add("low-priority");
 
-    newTaskEl.addEventListener('click', (ev) => {
-        ev.currentTarget.classList.toggle('completed');
-    });
+    if(taskTitle) {
+        const task = {
+            title: taskTitle,
+            isCompleted: false,
+            priority: 'low'
+        }
 
-    newTaskEl.innerHTML = `
-    <span class="task-content">${taskTitle}</span>
-    <div class="task-actions">
-        <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-        <button class="task-btn" onclick="this.parentNode.parentNode.remove()">
-            <span class="material-symbols-outlined">delete</span>
-        </button>
-    </div>`
-    if (Boolean(taskTitle) === true) {
-        taskListEl.append(newTaskEl);
-    }
+        newTaskEl.classList.add("task-item");
+        newTaskEl.classList.add("low-priority");
+
+        newTaskEl.addEventListener('click', (ev) => {
+            ev.currentTarget.classList.toggle('completed');
+        });
+
+        newTaskEl.innerHTML = `
+        <span class="task-content">${taskTitle}</span>
+        <div class="task-actions">
+            <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
+            <button class="task-btn" onclick="this.parentNode.parentNode.remove()">
+                <span class="material-symbols-outlined">delete</span>
+            </button>
+        </div>`
+        if (Boolean(taskTitle) === true) {
+            taskListEl.append(newTaskEl);
+        }
+        tasks.push(task);
+        taskStorage.save(tasks);
+        inputTaskEl.value = null;
+    };
 }
