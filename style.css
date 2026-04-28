@@ -2,6 +2,7 @@
     --blue: #1b6ece;
     --salad: #44c033;
     --shadow: rgba(0, 0, 0, 0.2);
+    --delete: #b5312e;
 }
 
 body {
@@ -107,6 +108,26 @@ body {
 }
 
 .task-btn:hover {   
+    opacity: 0.7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.task-btn-delete {
+    color: var(--delete);
+    border: 1px solid var(--delete);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.task-btn-delete:hover {   
     opacity: 0.7;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px var(--shadow);

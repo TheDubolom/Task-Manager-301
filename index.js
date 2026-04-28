@@ -30,7 +30,7 @@ const addButton = document.getElementById("add-btn");
 const inputTaskEl = document.getElementById("input-task");
 addButton.onclick = addTask;
 
-let tasks = taskStorage.get();
+let TASKS = taskStorage.get();
 
 function createTask(task) {
     const newTaskEl = document.createElement('li');
@@ -39,6 +39,8 @@ function createTask(task) {
 
     newTaskEl.addEventListener('click', (ev) => {
         ev.currentTarget.classList.toggle('completed');
+        task.isCompleted = !task.isCompleted;
+        taskStorage.save(TASKS);
     });
 
     if (task.isCompleted === true){
@@ -49,14 +51,21 @@ function createTask(task) {
     <span class="task-content">${task.title}</span>
     <div class="task-actions">
         <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-        <button class="task-btn" onclick="this.parentNode.parentNode.remove()">
+        <button class="task-btn-delete" onclick="this.parentNode.parentNode.remove()">
             <span class="material-symbols-outlined">delete</span>
         </button>
     </div>`
+
+    newTaskEl.querySelector('button.task-btn-delete').addEventListener('click', (ev) => {
+        ev.currentTarget.parentNode.parentNode.remove();
+        TASKS = TASKS.filter(x => x.title != task.title);
+        taskStorage.save(TASKS);
+    });
+
     taskListEl.append(newTaskEl);
 }
 
-tasks.forEach(createTask);
+TASKS.forEach(createTask);
 
 function addTask() {
     const taskTitle = inputTaskEl.value;
@@ -74,21 +83,30 @@ function addTask() {
 
         newTaskEl.addEventListener('click', (ev) => {
             ev.currentTarget.classList.toggle('completed');
+            task.isCompleted = !task.isCompleted;
+            taskStorage.save(TASKS);
         });
 
         newTaskEl.innerHTML = `
         <span class="task-content">${taskTitle}</span>
         <div class="task-actions">
             <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-            <button class="task-btn" onclick="this.parentNode.parentNode.remove()">
+            <button class="task-btn-delete" onclick="this.parentNode.parentNode.remove()">
                 <span class="material-symbols-outlined">delete</span>
             </button>
         </div>`
+
+        newTaskEl.querySelector('button.task-btn-delete').addEventListener('click', (ev) => {
+            ev.currentTarget.parentNode.parentNode.remove();
+            TASKS = TASKS.filter(x => x.title != task.title);
+            taskStorage.save(TASKS);
+        });
+
         if (Boolean(taskTitle) === true) {
             taskListEl.append(newTaskEl);
         }
-        tasks.push(task);
-        taskStorage.save(tasks);
+        TASKS.push(task);
+        taskStorage.save(TASKS);
         inputTaskEl.value = null;
     };
 }
