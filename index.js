@@ -50,8 +50,10 @@ function createTask(task) {
     newTaskEl.innerHTML = `
     <span class="task-content">${task.title}</span>
     <div class="task-actions">
-        <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-        <button class="task-btn-delete" onclick="this.parentNode.parentNode.remove()">
+        <button class="task-btn">
+            <span class="material-symbols-outlined">stylus</span>
+        </button>
+        <button class="task-btn-delete">
             <span class="material-symbols-outlined">delete</span>
         </button>
     </div>`
@@ -90,8 +92,10 @@ function addTask() {
         newTaskEl.innerHTML = `
         <span class="task-content">${taskTitle}</span>
         <div class="task-actions">
-            <button class="task-btn"><span class="material-symbols-outlined">stylus</span></button>
-            <button class="task-btn-delete" onclick="this.parentNode.parentNode.remove()">
+            <button class="task-btn-edit">
+                <span class="material-symbols-outlined">stylus</span>
+            </button>
+            <button class="task-btn-delete">
                 <span class="material-symbols-outlined">delete</span>
             </button>
         </div>`
@@ -102,11 +106,22 @@ function addTask() {
             taskStorage.save(TASKS);
         });
 
+        newTaskEl.querySelector('button.task-btn-edit').addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            console.log('skibidi bediti')
+
+            taskStorage.save(TASKS);
+        });
+
         if (Boolean(taskTitle) === true) {
             taskListEl.append(newTaskEl);
         }
         TASKS.push(task);
         taskStorage.save(TASKS);
         inputTaskEl.value = null;
+        
     };
 }
+
